@@ -1,0 +1,7 @@
+app:
+  name: golang-service-template
+
+include-external-resources:
+  - 'api-definition.yml'
+  - 'cors.policy.yml'
+  - 'config.dev.yml'

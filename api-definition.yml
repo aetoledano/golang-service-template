@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  description: golang-service-template
+  title: "golang-service-template"
+  version: "1.0.0"
+  
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Check if server is up
+      operationId: HealthCheck
+      responses:
+        '200':
+          description: Server is up
+        default:
+          description: Unexpected error or server maybe down
+
+components:
+  schemas:
+
+    ApiMessage:
+      type: object
+      properties:
+        code:
+          description: "Status code"
+          type: "integer"
+        tag:
+          description: "Constant tag per message type"
+          type: "string"
+        data:
+          example: "{}"
+          description: "Backend content"
+          type: "object"

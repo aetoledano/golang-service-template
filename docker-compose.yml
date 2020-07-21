@@ -1,0 +1,21 @@
+version: '2.3'
+
+services:
+  golang-service-template:
+    image: golang-service-template
+    ports:
+      - '8080:8080'
+    environment:
+      - DATABASE_URL="host=golang-service-template-db port=5432 user=postgres dbname=golang-service-template password=postgres sslmode=disable"
+    depends_on:
+      - golang-service-template-db
+
+  golang-service-template-db:
+    container_name: golang-service-template-db
+    image: 'postgres:11-alpine'
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      - POSTGRES_DB=golang-service-template
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
