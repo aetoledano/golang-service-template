@@ -3,19 +3,17 @@ info:
   description: golang-service-template
   title: "golang-service-template"
   version: "1.0.0"
-  
+
 paths:
-  /health:
+  /sample:
     get:
       tags:
-        - Health
-      summary: Check if server is up
-      operationId: HealthCheck
+        - Sample
+      summary: Sample endpoint definition
+      operationId: SampleHandler
       responses:
         '200':
-          description: Server is up
-        default:
-          description: Unexpected error or server maybe down
+          description: Dummy sample response
 
 components:
   schemas:
@@ -26,9 +24,9 @@ components:
         code:
           description: "Status code"
           type: "integer"
-        tag:
-          description: "Constant tag per message type"
-          type: "string"
+        subCode:
+          description: "Api specific status code"
+          type: "integer"
         data:
           example: "{}"
           description: "Backend content"

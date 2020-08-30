@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+api:
+  root:
+
+database:
+  dialect: postgres
+  url: ${DATABASE_URL}

@@ -1,16 +1,16 @@
 package middleware
 
 import (
+	"github.com/aetoledano/golang-service-template/common/ioutil"
+	"github.com/aetoledano/golang-service-template/constants"
 	"github.com/labstack/echo"
 	echo_middleware "github.com/labstack/echo/middleware"
 	log "github.com/sirupsen/logrus"
-	"github.com/aetoledano/golang-service-template/config"
-	"github.com/aetoledano/golang-service-template/util"
 )
 
-func CraftCORSMiddleware() echo.MiddlewareFunc {
+func BuildCORSMiddleware() echo.MiddlewareFunc {
 	allowedOrigins := make([]string, 0)
-	err := util.ReadFileAsYml(config.CORS_FILE, &allowedOrigins)
+	err := ioutil.ReadFileAsYml(constants.CORS_FILE, &allowedOrigins)
 	if err != nil {
 		log.Fatal("could not load CORS origins file ", err)
 	}

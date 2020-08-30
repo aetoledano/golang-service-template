@@ -1,10 +1,10 @@
 package db
 
 import (
+	"github.com/aetoledano/golang-service-template/config"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	log "github.com/sirupsen/logrus"
-	"github.com/aetoledano/golang-service-template/config"
 )
 
 var DB *gorm.DB
@@ -20,7 +20,10 @@ func DbConnect() error {
 	}
 
 	var err error
-	DB, err = gorm.Open(config.DIALECT, config.CONNECTION_STRING())
+	DB, err = gorm.Open(
+		config.App.Database.Dialect,
+		config.App.Database.Url,
+	)
 	if err != nil {
 		DB = nil
 		return err

@@ -11,4 +11,3 @@ func HeadersLoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		return next(c)
 	}
 }
-

@@ -3,16 +3,18 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/carlescere/scheduler"
-	"github.com/labstack/echo"
-	echo_middleware "github.com/labstack/echo/middleware"
-	echolog "github.com/onrik/logrus/echo"
-	log "github.com/sirupsen/logrus"
 	"github.com/aetoledano/golang-service-template/config"
+	"github.com/aetoledano/golang-service-template/constants"
 	"github.com/aetoledano/golang-service-template/server/middleware"
 	"github.com/aetoledano/golang-service-template/services/db"
+	"github.com/carlescere/scheduler"
+	"github.com/labstack/echo"
+	echoMiddleware "github.com/labstack/echo/middleware"
+	echoLog "github.com/onrik/logrus/echo"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 )
 
@@ -23,23 +25,24 @@ func Start() {
 
 	EchoInstance = echo.New()
 
-	//logging
-	EchoInstance.Logger = echolog.NewLogger(log.StandardLogger(), "")
-	EchoInstance.Use(echo_middleware.Logger())
-	EchoInstance.Use(echo_middleware.Recover())
+	//logging config
+	EchoInstance.Logger = echoLog.NewLogger(log.StandardLogger(), constants.APP_NAME)
+	EchoInstance.Use(echoMiddleware.Logger())
+	EchoInstance.Use(echoMiddleware.Recover())
 	//EchoInstance.Use(HeadersLoggerMiddleware)
 
 	//cors config
-	EchoInstance.Use(middleware.CraftCORSMiddleware())
+	EchoInstance.Use(middleware.BuildCORSMiddleware())
 
-	//routing
-	configRouter(EchoInstance)
+	//routing config
+	configRoutes(EchoInstance)
 
+	serverPort := strconv.Itoa(config.App.Server.Port)
 	go func() {
-		if err := EchoInstance.Start(":" + config.SERVER_PORT); err != nil {
+		if err := EchoInstance.Start(":" + serverPort); err != nil {
 			errorName := fmt.Sprintf("%s", err)
 			if errorName != "http: Server closed" {
-				log.Fatal("⇨ Server could not be started: ", err)
+				log.Fatal(constants.SERVER_START_FAIL_MSG, err)
 			}
 		}
 	}()

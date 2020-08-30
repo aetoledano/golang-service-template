@@ -3,5 +3,7 @@ app:
 
 include-external-resources:
   - 'api-definition.yml'
-  - 'cors.policy.yml'
-  - 'config.dev.yml'
+  - 'cors-policy.yml'
+  - 'app-dev.yml'
+  - 'app-stg.yml'
+  - 'app-prod.yml'

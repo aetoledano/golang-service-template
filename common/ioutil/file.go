@@ -1,4 +1,4 @@
-package util
+package ioutil
 
 import (
 	"encoding/json"
@@ -48,7 +48,7 @@ func ReadFileAsYml(path string, target interface{}) error {
 		return err
 	}
 
-	err = yaml.Unmarshal(content, target)
+	err = yaml.Unmarshal([]byte(os.ExpandEnv(string(content))), target)
 	if err != nil {
 		log.Error("could not unmarshal yml file: "+path, err)
 		return err
