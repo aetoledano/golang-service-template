@@ -5,6 +5,10 @@ import (
 	"github.com/labstack/echo"
 )
 
-func (_ *Api) SampleHandler(c echo.Context, pathParams map[string]string) error {
+func (_ *Api) SampleHandler(c echo.Context) error {
 	return ok(c, &models.ApiMessage{Data: "sample found"})
+}
+
+func (_ *Api) PostHandler(c echo.Context) error {
+	return ok(c, &models.ApiMessage{Data: c.QueryParams()})
 }

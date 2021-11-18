@@ -3,7 +3,7 @@ package ioutil
 import (
 	"encoding/json"
 	log "github.com/sirupsen/logrus"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"os"
 )

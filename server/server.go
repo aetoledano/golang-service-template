@@ -6,6 +6,7 @@ import (
 	"github.com/aetoledano/golang-service-template/config"
 	"github.com/aetoledano/golang-service-template/constants"
 	"github.com/aetoledano/golang-service-template/server/middleware"
+	"github.com/aetoledano/golang-service-template/server/routes"
 	"github.com/aetoledano/golang-service-template/services/db"
 	"github.com/carlescere/scheduler"
 	"github.com/labstack/echo"
@@ -29,13 +30,13 @@ func Start() {
 	EchoInstance.Logger = echoLog.NewLogger(log.StandardLogger(), constants.APP_NAME)
 	EchoInstance.Use(echoMiddleware.Logger())
 	EchoInstance.Use(echoMiddleware.Recover())
-	//EchoInstance.Use(HeadersLoggerMiddleware)
+	EchoInstance.Use(middleware.HeadersLoggerMiddleware)
 
 	//cors config
 	EchoInstance.Use(middleware.BuildCORSMiddleware())
 
 	//routing config
-	configRoutes(EchoInstance)
+	routes.ConfigRoutes(EchoInstance)
 
 	serverPort := strconv.Itoa(config.App.Server.Port)
 	go func() {

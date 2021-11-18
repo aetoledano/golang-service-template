@@ -4,7 +4,7 @@ import (
 	"github.com/aetoledano/golang-service-template/common/ioutil"
 	"github.com/aetoledano/golang-service-template/constants"
 	"github.com/labstack/echo"
-	echo_middleware "github.com/labstack/echo/middleware"
+	echoMiddleware "github.com/labstack/echo/middleware"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -15,7 +15,7 @@ func BuildCORSMiddleware() echo.MiddlewareFunc {
 		log.Fatal("could not load CORS origins file ", err)
 	}
 
-	return echo_middleware.CORSWithConfig(echo_middleware.CORSConfig{
+	return echoMiddleware.CORSWithConfig(echoMiddleware.CORSConfig{
 		AllowOrigins: allowedOrigins,
 		AllowHeaders: []string{
 			echo.HeaderOrigin,
